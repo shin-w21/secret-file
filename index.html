@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>？？？</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .login-form {
+            display: block;
+        }
+        
+        .main-content {
+            display: none;
+        }
+        
+        h1 {
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .password-section {
+            margin-bottom: 2rem;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .password-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .error-message {
+            color: #e53e3e;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: #fed7d7;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .link-button {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: #4a5568;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .link-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+        
+
+        
+        .link-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .link-description {
+            font-size: 0.9rem;
+            color: #718096;
+            text-align: center;
+        }
+        
+        .logout-btn {
+            background: #f56565;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: #e53e3e;
+            transform: translateY(-1px);
+        }
+        
+        .welcome-message {
+            background: rgba(72, 187, 120, 0.2);
+            color: #68d391;
+            border: 1px solid rgba(104, 211, 145, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ログインフォーム -->
+        <div class="login-form" id="loginForm">
+            <h1>🔐 セキュアリンク集</h1>
+            <div class="password-section">
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    class="password-input" 
+                    placeholder="パスワードを入力してください"
+                >
+                <button class="login-btn" onclick="checkPassword()">ログイン</button>
+                <div class="error-message" id="errorMessage">
+                    パスワードが間違っています。もう一度お試しください。
+                </div>
+            </div>
+        </div>
+        
+        <!-- メインコンテンツ -->
+        <div class="main-content" id="mainContent">
+            <div class="welcome-message">
+                ログインに成功しました。お好きな作品にアクセスできます。
+            </div>
+            
+            <h1>リンク集</h1>
+            
+            <div class="links-grid">
+                <a href="https://hitomi.la/doujinshi/%E3%82%B9%E3%83%91%E3%83%BB%E3%82%AB%E3%82%A4%E3%83%A9%E3%82%AF%E3%83%BC%E3%82%A2-%E6%97%A5%E6%9C%AC%E8%AA%9E-2835175.html" target="_blank" class="link-button">
+                    <div class="link-title">スパ・カイラクーア</div>
+                </a>
+                
+                <a href="https://hitomi.la/doujinshi/%E3%82%B9%E3%83%91%E3%83%BB%E3%82%AB%E3%82%A4%E3%83%A9%E3%82%AF%E3%83%BC%E3%82%A2-1.5-%E6%97%A5%E6%9C%AC%E8%AA%9E-2913878.html" target="_blank" class="link-button">
+                    <div class="link-title">スパ・カイラクーア 1.5</div>
+                </a>
+                
+                <a href="https://hitomi.la/doujinshi/%E3%82%B9%E3%83%91%E3%83%BB%E3%82%AB%E3%82%A4%E3%83%A9%E3%82%AF%E3%83%BC%E3%82%A2-2-%E6%97%A5%E6%9C%AC%E8%AA%9E-2998690.html" target="_blank" class="link-button">
+                    <div class="link-title">スパ・カイラクーア 2</div>
+                </a>
+                
+                <a href="https://hitomi.la/doujinshi/%E3%82%B9%E3%83%91%E3%83%BB%E3%82%AB%E3%82%A4%E3%83%A9%E3%82%AF%E3%83%BC%E3%82%A2-2.5-%E6%97%A5%E6%9C%AC%E8%AA%9E-3465315.html" target="_blank" class="link-button">
+                    <div class="link-title">スパ・カイラクーア 2.5</div>
+                </a>
+                
+                <a href="https://hitomi.la/doujinshi/%E3%82%B9%E3%83%91%E3%83%BB%E3%82%AB%E3%82%A4%E3%83%A9%E3%82%AF%E3%83%BC%E3%82%A23-%E6%97%A5%E6%9C%AC%E8%AA%9E-3490035.html" target="_blank" class="link-button">
+                    <div class="link-title">スパ・カイラクーア 3</div>
+                </a>
+                
+                <a href="https://hitomi.la/doujinshi/一晩泊めてよ、オタクくん-日本語-3521078.html#1" target="_blank" class="link-button">
+                    <div class="link-title">一晩泊めてよ、オタクくん</div>
+                </a>
+                
+                <a href="https://www.netflix.com" target="_blank" class="link-button">
+                    <div class="link-icon">🎬</div>
+                    <div class="link-title">Netflix</div>
+                    <div class="link-description">動画ストリーミング</div>
+                </a>
+                
+                <a href="https://www.stackoverflow.com" target="_blank" class="link-button">
+                    <div class="link-icon">❓</div>
+                    <div class="link-title">Stack Overflow</div>
+                    <div class="link-description">プログラミングQ&A</div>
+                </a>
+            </div>
+            
+            <button class="logout-btn" onclick="logout()">ログアウト</button>
+        </div>
+    </div>
+
+    <script>
+        // パスワード設定（実際の使用では、より安全な方法を推奨）
+        const correctPassword = 'Sv2niu41';
+        let isLoggedIn = false;
+
+        function checkPassword() {
+            const inputPassword = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (inputPassword === correctPassword) {
+                // ログイン成功
+                isLoggedIn = true;
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                errorMessage.style.display = 'none';
+            } else {
+                // パスワード間違い
+                errorMessage.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // Enterキーでログイン
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // ページの保護（直接URLアクセス防止）
+        window.addEventListener('beforeunload', function() {
+            if (!isLoggedIn) {
+                return;
+            }
+        });
+    </script>
+</body>
+</html>
