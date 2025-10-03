@@ -5,284 +5,279 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>？？？</title>
     <style>
-        * {
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f9f9f9;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             color: #333;
         }
-        
+
+        #login-screen, #main-content { display: none; }
+        .hidden { display: none; }
+
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
+            padding: 20px;
             max-width: 600px;
-            width: 90%;
+            margin: 0 auto;
+        }
+
+        .btn { 
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin: 10px 0;
+            cursor: pointer; 
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background-color: #fff;
+            font-size: 14px;
+            transition: background-color 0.2s, box-shadow 0.2s;
             text-align: center;
         }
-        
-        .login-form {
-            display: block;
+        .btn:hover {
+            background-color: #f2f2f2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        
-        .main-content {
-            display: none;
-        }
-        
-        h1 {
-            color: #4a5568;
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-            font-weight: 700;
-        }
-        
-        .password-section {
-            margin-bottom: 2rem;
-        }
-        
-        .password-input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .password-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        
-        .login-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            font-size: 1rem;
+
+        h2 {
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 10px;
         }
-        
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-        
-        .error-message {
-            color: #e53e3e;
-            margin-top: 1rem;
-            padding: 0.5rem;
-            background: #fed7d7;
-            border-radius: 5px;
-            display: none;
-        }
-        
+
+        /* リンクボタン */
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 12px;
+            margin: 20px 0;
         }
-        
         .link-button {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-decoration: none;
-            color: #4a5568;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-        
-        .link-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            border-color: #667eea;
-        }
-        
-
-        
-        .link-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .link-description {
-            font-size: 0.9rem;
-            color: #718096;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px 18px;
+            background-color: #fff;
+            color: #333;
             text-align: center;
+            text-decoration: none;
+            font-size: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            transition: all 0.2s;
         }
-        
-        .logout-btn {
-            background: #f56565;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 2rem;
-            transition: all 0.3s ease;
+        .link-button:hover {
+            background-color: #f8f8f8;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
         }
-        
-        .logout-btn:hover {
-            background: #e53e3e;
-            transform: translateY(-1px);
+        .link-title {
+            margin: 0;
+            font-weight: 500;
         }
-        
-        .welcome-message {
-            background: rgba(72, 187, 120, 0.2);
-            color: #68d391;
-            border: 1px solid rgba(104, 211, 145, 0.3);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 1.5rem;
-            }
-            
-            .links-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 1.5rem;
-            }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #888;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- ログインフォーム -->
-        <div class="login-form" id="loginForm">
-            <h1>ハピネスリンク集</h1>
-            <div class="password-section">
-                <input 
-                    type="password" 
-                    id="passwordInput" 
-                    class="password-input" 
-                    placeholder="パスワードを入力してください"
-                >
-                <button class="login-btn" onclick="checkPassword()">ログイン</button>
-                <div class="error-message" id="errorMessage">
-                    パスワードが間違っています。もう一度お試しください。
-                </div>
-            </div>
-        </div>
-        
-        <!-- メインコンテンツ -->
-        <div class="main-content" id="mainContent">
-            <div class="welcome-message">
-                ログインに成功しました。お好きな作品にアクセスできます。
-            </div>
-            
-            <h1>リンク集</h1>
-            
+    <!-- ログイン画面 -->
+    <div class="container" id="login-screen">
+        <h2>ログイン</h2>
+        <p>パスワードを入力してください</p>
+        <input type="password" id="password-input" placeholder="パスワード" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:10px;">
+        <button class="btn" onclick="login()">ログイン</button>
+        <p id="login-error" style="color:red;"></p>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <div id="main-content">
+        <!-- Book セクション -->
+        <div class="container">        
+            <h2>Book</h2>
             <div class="links-grid">
                 <a href="https://hitomi.la/doujinshi/スパ・カイラクーア-日本語-2835175.html#1" target="_blank" class="link-button">
                     <div class="link-title">スパ・カイラクーア</div>
                 </a>
-                
+
                 <a href="https://hitomi.la/doujinshi/スパ・カイラクーア-1.5-日本語-3446515.html#1" target="_blank" class="link-button">
                     <div class="link-title">スパ・カイラクーア 1.5</div>
                 </a>
-                
+
                 <a href="https://hitomi.la/doujinshi/スパ・カイラクーア２-日本語-2998774.html#1" target="_blank" class="link-button">
                     <div class="link-title">スパ・カイラクーア 2</div>
                 </a>
-                
+
                 <a href="https://hitomi.la/doujinshi/スパ・カイラクーア-2.5-日本語-3465315.html#1" target="_blank" class="link-button">
                     <div class="link-title">スパ・カイラクーア 2.5</div>
                 </a>
-                
+
                 <a href="https://hitomi.la/doujinshi/スパ・カイラクーア3-日本語-3490035.html#1" target="_blank" class="link-button">
                     <div class="link-title">スパ・カイラクーア 3</div>
                 </a>
-                
+
                 <a href="https://hitomi.la/doujinshi/一晩泊めてよ、オタクくん-日本語-3521078.html#1" target="_blank" class="link-button">
                     <div class="link-title">一晩泊めてよ、オタクくん</div>
                 </a>
-                
-                <a href="https://hitomi.la/manga/不完全マーブル-日本語-390600-2131662.html#4" target="_blank" class="link-button">
-                    <div class="link-title">不完全マーブル</div>
-                </a>
-                
 
-                
+                <a href="https://hitomi.la/doujinshi/旅先で仲良くなった子が男と思ってたら女の子だった件!!ex-日本語-2916290.html#1" target="_blank" class="link-button">
+                    <div class="link-title">旅先で仲良くなった子が男と思ってたら女の子だった件!!ex</div>
+                </a>
+
+                <a href="https://hitomi.la/doujinshi/彼女の妹をセフレにした話-日本語-3420983.html#1" target="_blank" class="link-button">
+                    <div class="link-title">彼女の妹をセフレにした話</div>
+                </a>
+
+                <a href="https://hitomi.la/doujinshi/少女売春島-日本語-3536993.html#1" target="_blank" class="link-button">
+                    <div class="link-title">少女売春島</div>
+                </a>
+
             </div>
-            
-            <button class="logout-btn" onclick="logout()">ログアウト</button>
         </div>
+
+
+
+
+        <!-- Movie セクション -->
+        <div class="container">        
+            <h2>Movie (model)</h2>
+            <div class="links-grid">
+                <a href="https://njavtv.com/ja/sone-614-uncensored-leak" target="_blank" class="link-button">
+                    <div class="link-title">SONE-614</div>
+                </a>
+
+                <a href="https://njavtv.com/ja/sone-615-uncensored-leak" target="_blank" class="link-button">
+                    <div class="link-title">SONE-615</div>
+                </a>
+
+                <a href="https://njavtv.com/ja/sone-638-uncensored-leak" target="_blank" class="link-button">
+                    <div class="link-title">SONE-638</div>
+                </a>
+
+                <a href="https://njavtv.com/ja/sone-682-uncensored-leak" target="_blank" class="link-button">
+                    <div class="link-title">SONE-682</div>
+                </a>
+
+                <a href="https://njavtv.com/ja/sone-720-uncensored-leak" target="_blank" class="link-button">
+                    <div class="link-title">SONE-720</div>
+                </a>
+
+                <a href="https://njavtv.com/ja/sone-758" target="_blank" class="link-button">
+                    <div class="link-title">SONE-758</div>
+                </a>
+
+                <a href="https://njavtv.com/ja/sone-811-uncensored-leak" target="_blank" class="link-button">
+                    <div class="link-title">SONE-811</div>
+                </a>
+
+                <a href="https://njavtv.com/ja/sone-846-uncensored-leak" target="_blank" class="link-button">
+                    <div class="link-title">SONE-846</div>
+                </a>
+
+            </div>
+        </div>
+
+
+
+
+        <!-- Movie セクション -->
+        <div class="container">        
+            <h2>Movie</h2>
+            <div class="links-grid">
+                <a href="https://missav.ws/ja/fc2-ppv-4615888" target="_blank" class="link-button">
+                    <div class="link-title">FC2-PPV-4615888</div>
+                </a>
+
+                <a href="https://missav.ws/ja/fc2-ppv-4353553" target="_blank" class="link-button">
+                    <div class="link-title">FC2-PPV-4353553</div>
+                </a>
+
+                <a href="https://missav.ws/ja/fc2-ppv-4485190" target="_blank" class="link-button">
+                    <div class="link-title">FC2-PPV-4485190</div>
+                </a>
+
+                <a href="https://missav.ws/ja/fc2-ppv-4558050" target="_blank" class="link-button">
+                    <div class="link-title">FC2-PPV-4558050</div>
+                </a>
+
+            </div>
+        </div>
+
+
+        <!-- Link セクション -->
+        <div class="container">        
+            <h2>Link</h2>
+            <div class="links-grid">
+                <a href="https://missav.live/ja/genres" target="_blank" class="link-button">
+                    <div class="link-title">MissAV</div>
+                </a>
+
+                <a href="https://hitomi.la./index-japanese.html?page=16038" target="_blank" class="link-button">
+                    <div class="link-title">hitomi♡</div>
+                </a>
+
+
+            </div>
+        </div>
+
+
+
+
+        <!-- ログアウト -->
+        <div class="container">
+            <button class="btn" onclick="logout()">ログアウト</button>
+        </div>
+
     </div>
 
-    <script>
-        // パスワード設定（実際の使用では、より安全な方法を推奨）
-        const correctPassword = 'Sv2niu41';
-        let isLoggedIn = false;
 
-        function checkPassword() {
-            const inputPassword = document.getElementById('passwordInput').value;
-            const errorMessage = document.getElementById('errorMessage');
-            
-            if (inputPassword === correctPassword) {
-                // ログイン成功
-                isLoggedIn = true;
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-                errorMessage.style.display = 'none';
+
+
+
+
+
+
+
+    <script>
+        const PASSWORD = "Sv2niu41"; // ←ここでパスワードを設定
+
+        // 初期表示
+        window.onload = function() {
+            if(localStorage.getItem("loggedIn") === "true") {
+                showMain();
             } else {
-                // パスワード間違い
-                errorMessage.style.display = 'block';
-                document.getElementById('passwordInput').value = '';
-                document.getElementById('passwordInput').focus();
+                showLogin();
+            }
+        };
+
+        function login() {
+            const input = document.getElementById("password-input").value;
+            if(input === PASSWORD) {
+                localStorage.setItem("loggedIn", "true");
+                showMain();
+            } else {
+                document.getElementById("login-error").textContent = "パスワードが違います";
             }
         }
 
         function logout() {
-            isLoggedIn = false;
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('mainContent').style.display = 'none';
-            document.getElementById('passwordInput').value = '';
-            document.getElementById('errorMessage').style.display = 'none';
+            localStorage.removeItem("loggedIn");
+            showLogin();
         }
 
-        // Enterキーでログイン
-        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
-        });
+        function showLogin() {
+            document.getElementById("login-screen").style.display = "block";
+            document.getElementById("main-content").style.display = "none";
+        }
 
-        // ページの保護（直接URLアクセス防止）
-        window.addEventListener('beforeunload', function() {
-            if (!isLoggedIn) {
-                return;
-            }
-        });
+        function showMain() {
+            document.getElementById("login-screen").style.display = "none";
+            document.getElementById("main-content").style.display = "block";
+        }
     </script>
 </body>
 </html>
